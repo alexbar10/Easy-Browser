@@ -12,6 +12,7 @@ import WebKit
 class ViewController: UIViewController {
 
     var webview: WKWebView!
+    var progressView: UIProgressView!
     
     override func loadView() {
         webview = WKWebView()
@@ -28,6 +29,20 @@ class ViewController: UIViewController {
     
     func setupUI() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(openAlertSheet))
+        
+        // Toolbar
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webview, action: #selector(webview.reload))
+        
+        progressView = UIProgressView(progressViewStyle: .default)
+        progressView.sizeToFit()
+        let customButton = UIBarButtonItem(customView: progressView)
+        
+        toolbarItems = [customButton, spacer, refresh]
+        navigationController?.isToolbarHidden = false
+        
+        // Add observer for track progress
+        webview.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
     }
     
     @objc func openAlertSheet() {
@@ -51,6 +66,12 @@ class ViewController: UIViewController {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         title = webView.title
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "estimatedProgress" {
+            progressView.progress = Float(webview.estimatedProgress)
+        }
     }
 }
 
