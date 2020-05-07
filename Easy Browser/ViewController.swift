@@ -13,6 +13,7 @@ class ViewController: UIViewController {
 
     var webview: WKWebView!
     var progressView: UIProgressView!
+    var websites = ["apple.com", "hackingwithswift.com"]
     
     override func loadView() {
         webview = WKWebView()
@@ -47,19 +48,19 @@ class ViewController: UIViewController {
     
     @objc func openAlertSheet() {
         let vc = UIAlertController(title: "Open...", message: nil, preferredStyle: .actionSheet)
-        vc.addAction(UIAlertAction(title: "https://twitter.com", style: .default, handler: { action -> Void in
-            self.webview.load(URLRequest(url: URL(string: action.title!)!))
-        }))
-        vc.addAction(UIAlertAction(title: "https://facebook.com", style: .default, handler: { action -> Void in
-            self.webview.load(URLRequest(url: URL(string: action.title!)!))
-        }))
+        
+        for website in websites {
+            vc.addAction(UIAlertAction(title: "https://\(website)", style: .default, handler: { action -> Void in
+                self.webview.load(URLRequest(url: URL(string: action.title!)!))
+            }))
+        }
         vc.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         present(vc, animated: true)
     }
     
     func loadUrl() {
-        let url = URL(string: "https://google.com")!
+        let url = URL(string: "https://" + websites[0])!
         webview.load(URLRequest(url: url))
         webview.allowsBackForwardNavigationGestures = true
     }
@@ -76,5 +77,21 @@ class ViewController: UIViewController {
 }
 
 extension ViewController : WKNavigationDelegate {
-    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        let url = navigationAction.request.url
+        
+        if let host = url?.host {
+            for website in websites {
+                if host.contains(website) {
+                    print("Allow")
+                    decisionHandler(.allow)
+                    return
+                }
+            }
+        }
+        let alert = UIAlertController(title: "Error", message: "Site not allowed", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default))
+        present(alert, animated: true, completion: nil)
+        decisionHandler(.cancel)
+    }
 }
