@@ -11,6 +11,7 @@ import WebKit
 
 class ViewController: UIViewController {
 
+    var websiteDefault: String?
     var webview: WKWebView!
     var progressView: UIProgressView!
     var websites = ["apple.com", "hackingwithswift.com"]
@@ -35,11 +36,15 @@ class ViewController: UIViewController {
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webview, action: #selector(webview.reload))
         
+        // Challenge 2
+        let next = UIBarButtonItem(title: "Back", style: .plain, target: webview, action: #selector(webview.goBack))
+        let forward = UIBarButtonItem(title: "Forward", style: .plain, target: webview, action: #selector(webview.goForward))
+        
         progressView = UIProgressView(progressViewStyle: .default)
         progressView.sizeToFit()
         let customButton = UIBarButtonItem(customView: progressView)
         
-        toolbarItems = [customButton, spacer, refresh]
+        toolbarItems = [next, forward, customButton, spacer, refresh]
         navigationController?.isToolbarHidden = false
         
         // Add observer for track progress
@@ -60,8 +65,13 @@ class ViewController: UIViewController {
     }
     
     func loadUrl() {
-        let url = URL(string: "https://" + websites[0])!
-        webview.load(URLRequest(url: url))
+        var url: URL? = nil
+        if let websiteDefault = websiteDefault {
+            url = URL(string: "https://" + websiteDefault)!
+        } else {
+            url = URL(string: "https://" + websites[0])!
+        }
+        webview.load(URLRequest(url: url!))
         webview.allowsBackForwardNavigationGestures = true
     }
     
@@ -89,6 +99,8 @@ extension ViewController : WKNavigationDelegate {
                 }
             }
         }
+        
+        // Challenge 1
         let alert = UIAlertController(title: "Error", message: "Site not allowed", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default))
         present(alert, animated: true, completion: nil)

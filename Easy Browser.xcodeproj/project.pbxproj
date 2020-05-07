@@ -13,6 +13,7 @@
 		4D211FDA245CE7AE00C150AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D211FD8245CE7AE00C150AB /* Main.storyboard */; };
 		4D211FDC245CE7B100C150AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D211FDB245CE7B100C150AB /* Assets.xcassets */; };
 		4D211FDF245CE7B100C150AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D211FDD245CE7B100C150AB /* LaunchScreen.storyboard */; };
+		4D71939024647FA200A0A63B /* ChooseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D71938F24647FA200A0A63B /* ChooseTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		4D211FDB245CE7B100C150AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D211FDE245CE7B100C150AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4D211FE0245CE7B100C150AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D71938F24647FA200A0A63B /* ChooseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				4D211FDB245CE7B100C150AB /* Assets.xcassets */,
 				4D211FDD245CE7B100C150AB /* LaunchScreen.storyboard */,
 				4D211FE0245CE7B100C150AB /* Info.plist */,
+				4D71938F24647FA200A0A63B /* ChooseTableViewController.swift */,
 			);
 			path = "Easy Browser";
 			sourceTree = "<group>";
@@ -140,6 +143,7 @@
 			files = (
 				4D211FD7245CE7AE00C150AB /* ViewController.swift in Sources */,
 				4D211FD3245CE7AE00C150AB /* AppDelegate.swift in Sources */,
+				4D71939024647FA200A0A63B /* ChooseTableViewController.swift in Sources */,
 				4D211FD5245CE7AE00C150AB /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
